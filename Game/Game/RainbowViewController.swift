@@ -210,7 +210,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
             imageView.frame = arcFrame
             self.view.addSubview(imageView)
             imageView.image = imageView.image!.imageWithRenderingMode(.AlwaysTemplate)
-            imageView.tintColor = colors[i]
+            imageView.tintColor = UIColor.clearColor()
 
         }
     }
