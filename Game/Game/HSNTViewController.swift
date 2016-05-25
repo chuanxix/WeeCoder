@@ -73,13 +73,7 @@ class HSNTViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        imageViews = [UIImageView(image: UIImage(named: "color1")), UIImageView(image: UIImage(named: "color2")), UIImageView(image: UIImage(named: "color3")), UIImageView(image: UIImage(named: "color4")), UIImageView(image: UIImage(named: "color5")), UIImageView(image: UIImage(named: "color6")), UIImageView(image: UIImage(named: "color7")), UIImageView(image: UIImage(named: "color8")), UIImageView(image: UIImage(named: "color9")), UIImageView(image: UIImage(named: "color10"))]
-        arcViews = [UIImageView(image: UIImage(named: "arc1")), UIImageView(image: UIImage(named: "arc2")), UIImageView(image: UIImage(named: "arc3")), UIImageView(image: UIImage(named: "arc4")), UIImageView(image: UIImage(named: "arc5")), UIImageView(image: UIImage(named: "arc6")), UIImageView(image: UIImage(named: "arc7")), UIImageView(image: UIImage(named: "arc8")), UIImageView(image: UIImage(named: "arc9")), UIImageView(image: UIImage(named: "arc10"))]
-        
-        colorStrings = ["purple", "pink", "red", "dark orange", "orange", "light orange", "yellow", "green", "turquoise", "blue"]
-        
-        // add the colors to array
-        colors = [UIColor.init(red: 143/255, green: 41/255, blue: 255/255, alpha: 1), UIColor.init(red: 255/255, green: 38/255, blue: 244/255, alpha: 1), UIColor.init(red: 252/255, green: 54/255, blue: 50/255, alpha: 1), UIColor.init(red: 255/255, green: 106/255, blue: 38/255, alpha: 1), UIColor.init(red: 255/255, green: 168/255, blue: 37/255, alpha: 1), UIColor.init(red: 255/255, green: 216/255, blue: 53/255, alpha: 1), UIColor.init(red: 246/255, green: 255/255, blue: 52/255, alpha: 1), UIColor.init(red: 113/255, green: 255/255, blue: 68/255, alpha: 1), UIColor.init(red: 52/255, green: 221/255, blue: 221/255, alpha: 1), UIColor.init(red: 15/255, green: 125/255, blue: 244/255, alpha: 1)]
+        imageViews = [UIImageView(image: UIImage(named: "head")), UIImageView(image: UIImage(named: "shoulder")), UIImageView(image: UIImage(named: "knee")), UIImageView(image: UIImage(named: "toe"))]
         
         // setting up the background
         self.view.backgroundColor = UIColor(white: 0.25, alpha: 1)
@@ -100,9 +94,6 @@ class HSNTViewController: UIViewController {
         addRedoButton(spacingToTop)
         addHelpButton(spacingToTop)
         
-        // add the rainbow frames
-        addRainbowFrames(spacingToTop, frame: frame)
-        
         addPalette(spacingToTop, frame: frame)
         
         let widthOfPuzzle = (frame.width - 50)/15
@@ -122,7 +113,7 @@ class HSNTViewController: UIViewController {
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
-        for i in 0..<10 {
+        for i in 0..<4 {
             imageViews[i].tag = i + 1
             images.append(imageViews[i].image!)
             imageViews[i].userInteractionEnabled = true
@@ -132,17 +123,17 @@ class HSNTViewController: UIViewController {
         let widthOfPuzzle = (frame.width - 50)/15
         let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
         
-        var originX = 20 + widthOfPuzzle
+        let originX = 20 + 2 * widthOfPuzzle
         var originY = spacingToTop + spacingBtwPieces
         
-        for i in 0..<10 {
+        for i in 0..<4 {
             imageViews[i].tag = i + 1
             images.append(imageViews[i].image!)
             imageViews[i].userInteractionEnabled = true
             unusedNumbers.append(imageViews[i])
         }
         
-        for i in 0..<5 {
+        for i in 0..<4 {
             let newUIImageView = imageViews[i]
             newUIImageView.frame = CGRectMake(originX, originY, widthOfPuzzle, widthOfPuzzle * 1.1)
             originY += widthOfPuzzle + spacingBtwPieces
@@ -150,18 +141,7 @@ class HSNTViewController: UIViewController {
             frames.append(newUIImageView.frame)
             
         }
-        
-        originX += 2 * widthOfPuzzle
-        originY = spacingToTop + spacingBtwPieces
-        for i in 5..<10 {
-            let newUIImageView = imageViews[i]
-            newUIImageView.frame = CGRectMake(originX, originY, widthOfPuzzle, widthOfPuzzle * 1.1)
-            originY += widthOfPuzzle + spacingBtwPieces
-            self.view.addSubview(newUIImageView)
-            frames.append(newUIImageView.frame)
-            
-        }
-        
+
         for image in imageViews {
             addPanAndTapGestureRecognizer(image)
         }
@@ -193,44 +173,22 @@ class HSNTViewController: UIViewController {
         self.view.addSubview(personImage)
     }
     
-    func addRainbowFrames(spacingToTop: CGFloat, frame: CGRect) {
-        let viewHeight = frame.height - spacingToTop - 20
-        let viewWidth = (frame.width - 50) / 3
-        let arcFrame = CGRectMake(30 + 2 * viewWidth,spacingToTop + (viewHeight - viewWidth)/2, viewWidth, viewWidth)
-        for i in 0..<10 {
-            let imageView = arcViews[i]
-            imageView.frame = arcFrame
-            self.view.addSubview(imageView)
-            imageView.image = imageView.image!.imageWithRenderingMode(.AlwaysTemplate)
-            imageView.tintColor = UIColor.clearColor()
-        }
-    }
-    
     func addDefaultPieces(frame: CGRect) {
         let widthOfPuzzle = view2!.frame.width/5
         
-        given1 = UIImageView(image: UIImage(named: "color1"))
+        given1 = UIImageView(image: UIImage(named: "head"))
         given1!.tag = 1
         given1!.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
         given1!.center = positionViews[0].center
         given1!.userInteractionEnabled = true
         addPanAndTapGestureRecognizer(given1!)
         
-        given2 = UIImageView(image: UIImage(named: "color3"))
-        given2!.tag = 3
-        given2!.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
-        given2!.center = positionViews[1].center
-        given2!.userInteractionEnabled = true
-        addPanAndTapGestureRecognizer(given2!)
-        
         self.view.addSubview(given1!)
-        self.view.addSubview(given2!)
         
-        usedNumbers = [given1!, given2!]
-        filledViews = [given1!, given2!]
-        filledPosition = 2
+        usedNumbers = [given1!]
+        filledViews = [given1!]
+        filledPosition = 1
         filledValues[0] = 1
-        filledValues[1] = 3
     }
     
     func addBackButton(spacingToTop : CGFloat) {

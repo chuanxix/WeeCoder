@@ -120,12 +120,6 @@ class RainbowViewController: UIViewController {// MARK: Properties
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
-        for i in 0..<10 {
-            imageViews[i].tag = i + 1
-            images.append(imageViews[i].image!)
-            imageViews[i].userInteractionEnabled = true
-            unusedNumbers.append(imageViews[i])
-        }
         
         let widthOfPuzzle = (frame.width - 50)/15
         let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
