@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B11259D1CF6250B00F52C36 /* head.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B1125991CF6250B00F52C36 /* head.wav */; };
+		1B11259E1CF6250B00F52C36 /* knees.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B11259A1CF6250B00F52C36 /* knees.wav */; };
+		1B11259F1CF6250B00F52C36 /* shoulders.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B11259B1CF6250B00F52C36 /* shoulders.wav */; };
+		1B1125A01CF6250B00F52C36 /* toes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B11259C1CF6250B00F52C36 /* toes.wav */; };
+		1B1125A21CF62A6400F52C36 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1125A11CF62A6400F52C36 /* arrow.png */; };
 		1B1132741CED485600B38BC0 /* Game in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132711CED485600B38BC0 /* Game */; };
 		1B1132751CED485600B38BC0 /* magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132721CED485600B38BC0 /* magic.wav */; };
 		1B1132771CED4A8400B38BC0 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132761CED4A8400B38BC0 /* stars.png */; };
@@ -78,6 +83,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B1125991CF6250B00F52C36 /* head.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = head.wav; sourceTree = "<group>"; };
+		1B11259A1CF6250B00F52C36 /* knees.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = knees.wav; sourceTree = "<group>"; };
+		1B11259B1CF6250B00F52C36 /* shoulders.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoulders.wav; sourceTree = "<group>"; };
+		1B11259C1CF6250B00F52C36 /* toes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toes.wav; sourceTree = "<group>"; };
+		1B1125A11CF62A6400F52C36 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		1B1132711CED485600B38BC0 /* Game */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Game; sourceTree = "<group>"; };
 		1B1132721CED485600B38BC0 /* magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = magic.wav; sourceTree = "<group>"; };
 		1B1132761CED4A8400B38BC0 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stars.png; sourceTree = "<group>"; };
@@ -233,6 +243,11 @@
 		1B4207E01CEC217C003C90E1 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				1B1132721CED485600B38BC0 /* magic.wav */,
+				1B1125991CF6250B00F52C36 /* head.wav */,
+				1B11259A1CF6250B00F52C36 /* knees.wav */,
+				1B11259B1CF6250B00F52C36 /* shoulders.wav */,
+				1B11259C1CF6250B00F52C36 /* toes.wav */,
 				1B2214EF1CD9B27D00109D24 /* slide.wav */,
 				1B2214E31CD994ED00109D24 /* tap.wav */,
 				1B91BA0B1CD148B100259740 /* snap.wav */,
@@ -288,10 +303,10 @@
 		4ECC1A831CBD9F3D00B6C8B0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1B1125A11CF62A6400F52C36 /* arrow.png */,
 				1BE775E01CF611C400A63516 /* body parts */,
 				1B7470331CF5591400C0CDE8 /* person.png */,
 				1B1132761CED4A8400B38BC0 /* stars.png */,
-				1B1132721CED485600B38BC0 /* magic.wav */,
 				1B4207E21CEC21A4003C90E1 /* numbers */,
 				1B4207E11CEC2192003C90E1 /* buttons */,
 				1B4207E01CEC217C003C90E1 /* sounds */,
@@ -374,6 +389,7 @@
 				1B2BBC391CEBC38B0035DCED /* color10.png in Resources */,
 				1B2BBC311CEBC38B0035DCED /* color2.png in Resources */,
 				1BFD2CCE1CCDB5EA009C58DD /* blastOff.wav in Resources */,
+				1B11259D1CF6250B00F52C36 /* head.wav in Resources */,
 				1B4207D91CEC2173003C90E1 /* arc4.png in Resources */,
 				1B16DED91CB426C2007D4BF1 /* LaunchScreen.storyboard in Resources */,
 				1BDACAF11CBDF81800289592 /* backButton.png in Resources */,
@@ -394,13 +410,16 @@
 				1B4207DE1CEC2173003C90E1 /* arc9.png in Resources */,
 				1BDACAED1CBDF78E00289592 /* redoButtonS.png in Resources */,
 				1B4207DA1CEC2173003C90E1 /* arc5.png in Resources */,
+				1B11259E1CF6250B00F52C36 /* knees.wav in Resources */,
 				1B1132771CED4A8400B38BC0 /* stars.png in Resources */,
 				1BE775F01CF618C200A63516 /* knee.png in Resources */,
 				1B2214EC1CD9969B00109D24 /* one.png in Resources */,
+				1B11259F1CF6250B00F52C36 /* shoulders.wav in Resources */,
 				1BFD2CD01CCDB5FF009C58DD /* trombone.wav in Resources */,
 				1B2214EE1CD9969B00109D24 /* two.png in Resources */,
 				4ECC1A871CBD9F5300B6C8B0 /* redoButton.png in Resources */,
 				1B1132741CED485600B38BC0 /* Game in Resources */,
+				1B1125A21CF62A6400F52C36 /* arrow.png in Resources */,
 				1B2BBC331CEBC38B0035DCED /* color4.png in Resources */,
 				1BFD2CC61CCDA42E009C58DD /* 1.wav in Resources */,
 				1B8370C71CDC48600052B44B /* figureS.png in Resources */,
@@ -428,6 +447,7 @@
 				1B2BBC371CEBC38B0035DCED /* color8.png in Resources */,
 				1BFD2CC71CCDA42E009C58DD /* 2.wav in Resources */,
 				1B2214ED1CD9969B00109D24 /* three.png in Resources */,
+				1B1125A01CF6250B00F52C36 /* toes.wav in Resources */,
 				1B7470341CF5591400C0CDE8 /* person.png in Resources */,
 				1B2BBC361CEBC38B0035DCED /* color7.png in Resources */,
 			);

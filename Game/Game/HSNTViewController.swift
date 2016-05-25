@@ -27,6 +27,10 @@ class HSNTViewController: UIViewController {
     let helpingHand = UIImageView(image: UIImage(named: "hand"))
     var frames = [CGRect]()
     var images = [UIImage]()
+    let personImage = UIImageView(image: UIImage(named: "person"))
+    var arrowFrames = [CGRect]()
+    let arrowImage = UIImageView(image: UIImage(named: "arrow"))
+    var paletteTag = [Int]()
     
     var currIter = 0
     var rocket: UIView?
@@ -75,6 +79,10 @@ class HSNTViewController: UIViewController {
         
         imageViews = [UIImageView(image: UIImage(named: "head")), UIImageView(image: UIImage(named: "shoulder")), UIImageView(image: UIImage(named: "knee")), UIImageView(image: UIImage(named: "toe"))]
         
+        for i in 0..<4 {
+            imageViews[i].tag = i + 1
+        }
+        
         // setting up the background
         self.view.backgroundColor = UIColor(white: 0.25, alpha: 1)
         let frame = self.view.frame
@@ -97,9 +105,10 @@ class HSNTViewController: UIViewController {
         addPalette(spacingToTop, frame: frame)
         
         let widthOfPuzzle = (frame.width - 50)/15
+        let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
         let widthOfPositionView = widthOfPuzzle / 2
         let originXOfPositionView = 25 + 7.25 * widthOfPuzzle
-        var originYOfPositionView = spacingToTop + 0.775 * widthOfPuzzle
+        var originYOfPositionView = spacingToTop + spacingBtwPieces + 0.25 * widthOfPuzzle
         
         while (originYOfPositionView < frame.height) {
             let newPos = UIView()
@@ -110,15 +119,21 @@ class HSNTViewController: UIViewController {
             originYOfPositionView += widthOfPuzzle
         }
         addDefaultPieces(frame)
+        addArrowPositions()
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
+
+        imageViews = imageViews.shuffle()
+        
         for i in 0..<4 {
+            paletteTag.append(imageViews[i].tag)
             imageViews[i].tag = i + 1
             images.append(imageViews[i].image!)
             imageViews[i].userInteractionEnabled = true
             unusedNumbers.append(imageViews[i])
         }
+        
         
         let widthOfPuzzle = (frame.width - 50)/15
         let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
@@ -126,12 +141,6 @@ class HSNTViewController: UIViewController {
         let originX = 20 + 2 * widthOfPuzzle
         var originY = spacingToTop + spacingBtwPieces
         
-        for i in 0..<4 {
-            imageViews[i].tag = i + 1
-            images.append(imageViews[i].image!)
-            imageViews[i].userInteractionEnabled = true
-            unusedNumbers.append(imageViews[i])
-        }
         
         for i in 0..<4 {
             let newUIImageView = imageViews[i]
@@ -163,14 +172,34 @@ class HSNTViewController: UIViewController {
         view3!.layer.cornerRadius = spacingToTop/4
         view3!.clipsToBounds = true
         
-        let personImage = UIImageView(image: UIImage(named: "person"))
         personImage.frame = view3!.frame
-        personImage.contentMode = UIViewContentMode.ScaleAspectFit
+        personImage.contentMode = UIViewContentMode.ScaleAspectFill
         
         self.view.addSubview(view1!)
         self.view.addSubview(view2!)
         self.view.addSubview(view3!)
         self.view.addSubview(personImage)
+    }
+    
+    func addArrowPositions() {
+        let imageFrame = personImage.frame
+        let widthUnit = imageFrame.width / 500
+        let heightUnit = imageFrame.height / 800
+        
+        let frame1 = CGRectMake(imageFrame.origin.x + 415 * widthUnit, imageFrame.origin.y + 150 * heightUnit, 80 * widthUnit, 50 * heightUnit)
+        let frame2 = CGRectMake(imageFrame.origin.x + 415 * widthUnit, imageFrame.origin.y + 275 * heightUnit, 80 * widthUnit, 50 * heightUnit)
+        let frame3 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 550 * heightUnit, 80 * widthUnit, 50 * heightUnit)
+        let frame4 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 690 * heightUnit, 80 * widthUnit, 50 * heightUnit)
+        arrowFrames = [frame1, frame2, frame3, frame4]
+//        print("x is \(frame1.origin.x) and y is \(frame1.origin.y) and unit is \(unit)")
+        print("screen is \(imageFrame)")
+        print("frame is \(frame4)")
+        for frame in arrowFrames {
+            let image = UIImageView(image: UIImage(named: "arrow"))
+            image.frame = frame
+            self.view.addSubview(image)
+        }
+        
     }
     
     func addDefaultPieces(frame: CGRect) {
@@ -386,7 +415,7 @@ class HSNTViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue()) {
             UIView.animateWithDuration(0.25, delay: 0, options: [], animations: {
                 view.transform = CGAffineTransformMakeScale(1.2, 1.2)
-                self.callColor(view.tag - 1)
+                self.soundManager.playBody(view.tag)
                 }, completion: { finished in
                     UIView.animateWithDuration(0.25, animations: {
                         view.transform = CGAffineTransformMakeScale(1, 1)
@@ -441,16 +470,6 @@ class HSNTViewController: UIViewController {
         //                            }
     }
     
-    /// - Attributions: http://nshipster.com/avspeechsynthesizer/
-    func callColor(index: Int) {
-        let string = colorStrings[index]
-        let utterance = AVSpeechUtterance(string: string)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speakUtterance(utterance)
-    }
-    
     func reset() {
         disableButtons(1.0)
         dispatch_async(dispatch_get_main_queue()) {
@@ -469,7 +488,7 @@ class HSNTViewController: UIViewController {
         for value in filledViews {
             print("tag\(value.tag)")
         }
-        clearAllRainbowColors()
+
         disableButtons(1.5 * Double(filledPosition))
         dispatch_async(dispatch_get_main_queue()) {
             self.soundManager.playTap()
@@ -480,12 +499,7 @@ class HSNTViewController: UIViewController {
         }
     }
     
-    func clearAllRainbowColors() {
-        for imageView in arcViews {
-            imageView.tintColor = UIColor.clearColor()
-        }
-    }
-    
+
     func recalculate() {
         //        print("filledposition \(filledPosition)")
         //        print("filledcount \(filledViews.count)")
@@ -555,5 +569,30 @@ extension HSNTViewController: UIGestureRecognizerDelegate {
             return true
         }
         return false
+    }
+}
+
+
+// http://stackoverflow.com/questions/24026510/how-do-i-shuffle-an-array-in-swift
+extension CollectionType {
+    /// Return a copy of `self` with its elements shuffled
+    func shuffle() -> [Generator.Element] {
+        var list = Array(self)
+        list.shuffleInPlace()
+        return list
+    }
+}
+
+extension MutableCollectionType where Index == Int {
+    /// Shuffle the elements of `self` in-place.
+    mutating func shuffleInPlace() {
+        // empty and single-element collections don't shuffle
+        if count < 2 { return }
+        
+        for i in 0..<count - 1 {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            guard i != j else { continue }
+            swap(&self[i], &self[j])
+        }
     }
 }
