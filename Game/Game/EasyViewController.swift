@@ -247,6 +247,14 @@ class EasyViewController: UIViewController {
         }
         recognizer.setTranslation(CGPointZero, inView: self.view)
         
+        // update the filled Position is a puzzle put in the chain is moved, so that it can still snap to the original place
+        if recognizer.state == .Began {
+            let tag = recognizer.view!.tag
+            if (filledViews.contains(recognizer.view!)) {
+                filledPosition = filledViews.indexOf(recognizer.view!)! - 2
+                print("filled position updated = \(filledPosition) and the tag is \(tag)")
+            }
+        }
         
         if recognizer.state == .Ended {
 
@@ -369,7 +377,6 @@ class EasyViewController: UIViewController {
             helpingHand.frame = frames[2]
             helpingHand.frame.origin.y = frame1!.height * 0.6
             helpingHand.frame.origin.x = 0
-//            helpingHand.frame.origin.y += frame1!.height * 0.6
             pieceToMove!.addSubview(helpingHand)
             self.view.addSubview(pieceToMove!)
             dispatch_async(dispatch_get_main_queue()) {
@@ -382,26 +389,18 @@ class EasyViewController: UIViewController {
                 })
             }
         }
-        else if (filledPosition >= 3) {
+        else {
             helpingHand.frame = frames[2]
             helpingHand.center = CGPointMake((playButtonFrame?.midX)!, (playButtonFrame?.midY)!)
             helpingHand.center.y += frames[2].height/2
             helpingHand.alpha = 0.8
-            dispatch_async(dispatch_get_main_queue()) {
-                UIView.animateWithDuration(0.25, animations: {
-                    self.view.addSubview(self.helpingHand)
-                })
-            }
-            
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "removeHand:", userInfo: nil, repeats: false)
-        }
-    }
-    
-    
-    func removeHand(timer: NSTimer) {
-        dispatch_async(dispatch_get_main_queue()) {
-            UIView.animateWithDuration(1, animations: {
-                self.helpingHand.removeFromSuperview()
+            self.view.addSubview(self.helpingHand)
+            UIView.animateWithDuration(2, delay: 1, options: .CurveEaseIn, animations: {
+                self.helpingHand.alpha = 0
+                }, completion: {finished in
+                    UIView.animateWithDuration(0, animations: {
+                        self.helpingHand.removeFromSuperview()
+                    })
             })
         }
     }

@@ -25,5 +25,9 @@ class ViewController: UIViewController {
 
     @IBAction func unwindToMainPageFromRainbow(sender: UIStoryboardSegue) {
     }
+    
+    @IBAction func unwindToMainPageFromHSNT(sender: UIStoryboardSegue) {
+        
+    }
 }
 

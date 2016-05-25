@@ -1,20 +1,22 @@
 //
-//  RainbowViewController.swift
+//  HSNTViewController.swift
 //  Wee Coders
 //
-//  Created by Chuanxi Xiong on 5/4/16.
+//  Created by Chuanxi Xiong on 5/24/16.
 //  Copyright © 2016 Chuanxi Xiong. All rights reserved.
 //
 
 import UIKit
 import AVFoundation
 
-class RainbowViewController: UIViewController {// MARK: Properties
+class HSNTViewController: UIViewController {
+    
+
     var filledPosition = 0
     var positionViews = [UIView]()
     var filledViews = [UIView]()
     var filledValues = [Int]()
-
+    
     var imageViews = [UIImageView]()
     var arcViews = [UIImageView]()
     var given1: UIImageView?
@@ -25,7 +27,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     let helpingHand = UIImageView(image: UIImage(named: "hand"))
     var frames = [CGRect]()
     var images = [UIImage]()
-
+    
     var currIter = 0
     var rocket: UIView?
     let soundManager = SoundManager.sharedInstance
@@ -50,7 +52,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
         dispatch_async(dispatch_get_main_queue()) {
             self.soundManager.playTap()
         }
-        performSegueWithIdentifier("unwindToMainPageFromRainbow", sender: sender)
+        performSegueWithIdentifier("unwindToMainPageFromHSNT", sender: sender)
     }
     
     
@@ -102,7 +104,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
         addRainbowFrames(spacingToTop, frame: frame)
         
         addPalette(spacingToTop, frame: frame)
-
+        
         let widthOfPuzzle = (frame.width - 50)/15
         let widthOfPositionView = widthOfPuzzle / 2
         let originXOfPositionView = 25 + 7.25 * widthOfPuzzle
@@ -175,17 +177,20 @@ class RainbowViewController: UIViewController {// MARK: Properties
         view2 = UIView(frame: CGRect(x: 25 + view1!.frame.width, y: spacingToTop, width: view1!.frame.width, height: view1!.frame.height))
         view2!.backgroundColor = color
         view2!.layer.cornerRadius = spacingToTop/4
-
-        view3 = UIImageView(image: UIImage(named: "background"))
+        
+        view3 = UIView(frame: CGRect(x: 30 + 2 * view1!.frame.width, y: spacingToTop, width: view1!.frame.width, height: view1!.frame.height))
+        view3!.backgroundColor = color
         view3!.layer.cornerRadius = spacingToTop/4
-        view3!.frame = CGRectMake(30 + 2 * view1!.frame.width, spacingToTop, view1!.frame.width, view1!.frame.height)
-        view3!.contentMode = UIViewContentMode.ScaleToFill
         view3!.clipsToBounds = true
-
+        
+        let personImage = UIImageView(image: UIImage(named: "person"))
+        personImage.frame = view3!.frame
+        personImage.contentMode = UIViewContentMode.ScaleAspectFit
+        
         self.view.addSubview(view1!)
         self.view.addSubview(view2!)
         self.view.addSubview(view3!)
-
+        self.view.addSubview(personImage)
     }
     
     func addRainbowFrames(spacingToTop: CGFloat, frame: CGRect) {
@@ -210,14 +215,14 @@ class RainbowViewController: UIViewController {// MARK: Properties
         given1!.center = positionViews[0].center
         given1!.userInteractionEnabled = true
         addPanAndTapGestureRecognizer(given1!)
-
+        
         given2 = UIImageView(image: UIImage(named: "color3"))
         given2!.tag = 3
         given2!.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
         given2!.center = positionViews[1].center
         given2!.userInteractionEnabled = true
         addPanAndTapGestureRecognizer(given2!)
-
+        
         self.view.addSubview(given1!)
         self.view.addSubview(given2!)
         
@@ -403,18 +408,18 @@ class RainbowViewController: UIViewController {// MARK: Properties
         
         currIter = currIter + 1
         if (currIter == filledViews.count) {
-//            let view = UIImageView(image: UIImage(named: "shining"))
-//            self.view.addSubview(view)
-//            view.alpha = 0
-//            view.frame = (view3?.frame)!
-//            view.contentMode = .ScaleAspectFill
-//            view.clipsToBounds = true
-//            UIView.animateWithDuration(2, delay: 3, options: .CurveEaseIn, animations: {
-//                view.alpha = 1
-//                self.soundManager.playMagic()
-//                }, completion: {finished in
-//                    view.alpha = 0
-//                    view.removeFromSuperview()})
+            //            let view = UIImageView(image: UIImage(named: "shining"))
+            //            self.view.addSubview(view)
+            //            view.alpha = 0
+            //            view.frame = (view3?.frame)!
+            //            view.contentMode = .ScaleAspectFill
+            //            view.clipsToBounds = true
+            //            UIView.animateWithDuration(2, delay: 3, options: .CurveEaseIn, animations: {
+            //                view.alpha = 1
+            //                self.soundManager.playMagic()
+            //                }, completion: {finished in
+            //                    view.alpha = 0
+            //                    view.removeFromSuperview()})
             timer.invalidate()
         }
     }
@@ -468,14 +473,14 @@ class RainbowViewController: UIViewController {// MARK: Properties
             UIView.animateWithDuration(2, delay: 1, options: .CurveEaseIn, animations: {
                 self.helpingHand.alpha = 0
                 }, completion: {finished in
-                UIView.animateWithDuration(0, animations: {
-                self.helpingHand.removeFromSuperview()
-                })
+                    UIView.animateWithDuration(0, animations: {
+                        self.helpingHand.removeFromSuperview()
+                    })
             })
         }
         
-//            dispatch_async(dispatch_get_main_queue()) {
-//                            }
+        //            dispatch_async(dispatch_get_main_queue()) {
+        //                            }
     }
     
     /// - Attributions: http://nshipster.com/avspeechsynthesizer/
@@ -524,8 +529,8 @@ class RainbowViewController: UIViewController {// MARK: Properties
     }
     
     func recalculate() {
-//        print("filledposition \(filledPosition)")
-//        print("filledcount \(filledViews.count)")
+        //        print("filledposition \(filledPosition)")
+        //        print("filledcount \(filledViews.count)")
         filledValues = Array(count: filledValues.count, repeatedValue: 0)
         filledPosition = 0
         filledViews = [UIImageView]()
@@ -555,8 +560,8 @@ class RainbowViewController: UIViewController {// MARK: Properties
             }
         }
         
-//        print("filledposition \(filledPosition)")
-//        print("filledcount \(filledViews.count)")
+        //        print("filledposition \(filledPosition)")
+        //        print("filledcount \(filledViews.count)")
         print("filledvalues\(filledValues)")
         
     }
@@ -582,7 +587,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     
 }
 
-extension RainbowViewController: UIGestureRecognizerDelegate {
+extension HSNTViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
