@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OLN-Ed-3AN">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Wee_Coders" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-De-pAX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="zOQ-By-WJ8">
+                                <rect key="frame" x="118" y="223" width="364" height="154"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wee Coders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgE-Je-Gy0">
+                                        <rect key="frame" x="53" y="0.0" width="258" height="64"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="XY8-Ez-oNT">
+                                                <variation key="widthClass=compact" constant="64"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="45"/>
+                                        <color key="textColor" red="0.71682692307692308" green="0.28807871186613049" blue="0.29478998583228899" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="M04-w1-ASk">
+                                        <rect key="frame" x="0.0" y="104" width="364" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6a3-RU-ZWu">
+                                                <rect key="frame" x="0.0" y="0.0" width="96" height="50"/>
+                                                <animations/>
+                                                <state key="normal" image="rainbow">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="OLN-Ed-3AN" kind="show" id="S3D-cZ-Q3J"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfP-jO-Zyy">
+                                                <rect key="frame" x="126" y="0.0" width="149" height="50"/>
+                                                <animations/>
+                                                <state key="normal" image="numbers"/>
+                                                <connections>
+                                                    <segue destination="SN3-Jq-qac" kind="show" id="gko-PB-NEw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdP-Bh-343">
+                                                <rect key="frame" x="305" y="0.0" width="59" height="50"/>
+                                                <animations/>
+                                                <state key="normal" image="figure"/>
+                                                <connections>
+                                                    <segue destination="p8O-sp-cK7" kind="show" id="fcV-B7-PH0"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="6a3-RU-ZWu" secondAttribute="height" id="Cyu-sC-Rkk"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <animations/>
+                            </stackView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GTL-De-pAX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EcP-Jh-hiN"/>
+                            <constraint firstItem="zOQ-By-WJ8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bvs-lp-iXx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GTL-De-pAX" secondAttribute="bottom" id="glx-9M-E8Q"/>
+                            <constraint firstItem="GTL-De-pAX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="rVM-Xg-nFK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="GTL-De-pAX" secondAttribute="trailing" constant="-20" id="x3B-ic-U7Z"/>
+                            <constraint firstItem="zOQ-By-WJ8" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zJL-9U-2b4"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="575" y="594"/>
+        </scene>
+        <!--Easy View Controller-->
+        <scene sceneID="skX-TR-RLu">
+            <objects>
+                <viewController id="SN3-Jq-qac" customClass="EasyViewController" customModule="Wee_Coders" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L20-jL-CdO"/>
+                        <viewControllerLayoutGuide type="bottom" id="pZD-Bc-fh5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1rQ-xI-A31">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kfe-Yk-8P8"/>
+                    <keyCommands>
+                        <keyCommand/>
+                    </keyCommands>
+                    <connections>
+                        <segue destination="4se-xr-V8p" kind="unwind" identifier="unwindToMainPage" unwindAction="unwindToMainPage:" id="YdY-yR-8St"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="21k-Bv-ODV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4se-xr-V8p" userLabel="Exit" sceneMemberID="exit"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Ncp-10-H9S">
+                    <connections>
+                        <action selector="pan2:" destination="SN3-Jq-qac" id="Gcs-Gd-dDv"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1463" y="-324"/>
+        </scene>
+        <!--Rainbow View Controller-->
+        <scene sceneID="eWf-1E-ldJ">
+            <objects>
+                <viewController id="OLN-Ed-3AN" customClass="RainbowViewController" customModule="Wee_Coders" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kam-WB-y2y"/>
+                        <viewControllerLayoutGuide type="bottom" id="m58-ph-3xc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZHW-Oc-Khp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="d5n-mc-uff" kind="unwind" identifier="unwindToMainPageFromRainbow" unwindAction="unwindToMainPageFromRainbow:" id="Qnk-Nf-QII"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CTO-Oa-HR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="d5n-mc-uff" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1463" y="486"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0SQ-lO-Iaf">
+            <objects>
+                <viewController id="p8O-sp-cK7" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hOO-fq-b96"/>
+                        <viewControllerLayoutGuide type="bottom" id="YTX-jb-kFV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mNg-S3-Tf1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SbN-oU-zXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="1273"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="figure" width="59" height="50"/>
+        <image name="gradient" width="640" height="438"/>
+        <image name="numbers" width="149" height="50"/>
+        <image name="rainbow" width="96" height="50"/>
+    </resources>
+</document>
