@@ -470,7 +470,7 @@ class HSNTViewController: UIViewController {
             helpingHand.center.y += frames[2].height/2
             helpingHand.alpha = 0.8
             self.view.addSubview(self.helpingHand)
-            UIView.animateWithDuration(2, delay: 1, options: .CurveEaseIn, animations: {
+            UIView.animateWithDuration(2, delay: 0, options: .CurveEaseIn, animations: {
                 self.helpingHand.alpha = 0
                 }, completion: {finished in
                     UIView.animateWithDuration(0, animations: {
