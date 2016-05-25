@@ -12,7 +12,7 @@ import AudioToolbox
 class SoundManager {
     static let sharedInstance = SoundManager()
     private init() {}
-    let urls : [NSURL?] = [NSBundle.mainBundle().URLForResource("1", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("2", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("3", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("4", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("5", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("blastOff",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("trombone",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("snap",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("tap",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("slide",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("magic",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("head",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("shoulders",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("knees",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("toes",withExtension: ".wav")]
+    let urls : [NSURL?] = [NSBundle.mainBundle().URLForResource("1", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("2", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("3", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("4", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("5", withExtension: ".wav"), NSBundle.mainBundle().URLForResource("blastOff",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("trombone",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("snap",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("tap",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("slide",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("magic",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("head",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("shoulders",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("knees",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("toes",withExtension: ".wav"), NSBundle.mainBundle().URLForResource("Head Shoulders Knees and Toes",withExtension: ".wav")]
     
     
     
@@ -56,5 +56,9 @@ class SoundManager {
     
     func playBody(number : Int) {
         play(number + 11)
+    }
+    
+    func playSong() {
+        play(16)
     }
 }

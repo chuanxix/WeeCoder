@@ -12,6 +12,7 @@
 		1B11259F1CF6250B00F52C36 /* shoulders.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B11259B1CF6250B00F52C36 /* shoulders.wav */; };
 		1B1125A01CF6250B00F52C36 /* toes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B11259C1CF6250B00F52C36 /* toes.wav */; };
 		1B1125A21CF62A6400F52C36 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1125A11CF62A6400F52C36 /* arrow.png */; };
+		1B1125A41CF642BF00F52C36 /* Head Shoulders Knees and Toes.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B1125A31CF642BF00F52C36 /* Head Shoulders Knees and Toes.wav */; };
 		1B1132741CED485600B38BC0 /* Game in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132711CED485600B38BC0 /* Game */; };
 		1B1132751CED485600B38BC0 /* magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132721CED485600B38BC0 /* magic.wav */; };
 		1B1132771CED4A8400B38BC0 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B1132761CED4A8400B38BC0 /* stars.png */; };
@@ -88,6 +89,7 @@
 		1B11259B1CF6250B00F52C36 /* shoulders.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoulders.wav; sourceTree = "<group>"; };
 		1B11259C1CF6250B00F52C36 /* toes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = toes.wav; sourceTree = "<group>"; };
 		1B1125A11CF62A6400F52C36 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		1B1125A31CF642BF00F52C36 /* Head Shoulders Knees and Toes.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Head Shoulders Knees and Toes.wav"; sourceTree = "<group>"; };
 		1B1132711CED485600B38BC0 /* Game */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Game; sourceTree = "<group>"; };
 		1B1132721CED485600B38BC0 /* magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = magic.wav; sourceTree = "<group>"; };
 		1B1132761CED4A8400B38BC0 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stars.png; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		1B4207E01CEC217C003C90E1 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				1B1125A31CF642BF00F52C36 /* Head Shoulders Knees and Toes.wav */,
 				1B1132721CED485600B38BC0 /* magic.wav */,
 				1B1125991CF6250B00F52C36 /* head.wav */,
 				1B11259A1CF6250B00F52C36 /* knees.wav */,
@@ -411,6 +414,7 @@
 				1BDACAED1CBDF78E00289592 /* redoButtonS.png in Resources */,
 				1B4207DA1CEC2173003C90E1 /* arc5.png in Resources */,
 				1B11259E1CF6250B00F52C36 /* knees.wav in Resources */,
+				1B1125A41CF642BF00F52C36 /* Head Shoulders Knees and Toes.wav in Resources */,
 				1B1132771CED4A8400B38BC0 /* stars.png in Resources */,
 				1BE775F01CF618C200A63516 /* knee.png in Resources */,
 				1B2214EC1CD9969B00109D24 /* one.png in Resources */,

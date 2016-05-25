@@ -29,7 +29,7 @@ class HSNTViewController: UIViewController {
     var images = [UIImage]()
     let personImage = UIImageView(image: UIImage(named: "person"))
     var arrowFrames = [CGRect]()
-    let arrowImage = UIImageView(image: UIImage(named: "arrow"))
+    let arrowImage = UIImage(named: "arrow")
     var paletteTag = [Int]()
     
     var currIter = 0
@@ -120,6 +120,7 @@ class HSNTViewController: UIViewController {
         }
         addDefaultPieces(frame)
         addArrowPositions()
+        print(paletteTag)
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
@@ -191,22 +192,13 @@ class HSNTViewController: UIViewController {
         let frame3 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 550 * heightUnit, 80 * widthUnit, 50 * heightUnit)
         let frame4 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 690 * heightUnit, 80 * widthUnit, 50 * heightUnit)
         arrowFrames = [frame1, frame2, frame3, frame4]
-//        print("x is \(frame1.origin.x) and y is \(frame1.origin.y) and unit is \(unit)")
-        print("screen is \(imageFrame)")
-        print("frame is \(frame4)")
-        for frame in arrowFrames {
-            let image = UIImageView(image: UIImage(named: "arrow"))
-            image.frame = frame
-            self.view.addSubview(image)
-        }
-        
     }
     
     func addDefaultPieces(frame: CGRect) {
         let widthOfPuzzle = view2!.frame.width/5
         
         given1 = UIImageView(image: UIImage(named: "head"))
-        given1!.tag = 1
+        given1!.tag = paletteTag.indexOf(1)! + 1
         given1!.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
         given1!.center = positionViews[0].center
         given1!.userInteractionEnabled = true
@@ -217,7 +209,7 @@ class HSNTViewController: UIViewController {
         usedNumbers = [given1!]
         filledViews = [given1!]
         filledPosition = 1
-        filledValues[0] = 1
+        filledValues[0] = given1!.tag
     }
     
     func addBackButton(spacingToTop : CGFloat) {
@@ -389,33 +381,37 @@ class HSNTViewController: UIViewController {
     
     func playSequentEffect(timer: NSTimer) {
         playIndividualEffect(filledViews[currIter])
-        UIView.animateWithDuration(1.5, animations: {
-            self.arcViews[self.currIter].tintColor = self.colors[self.filledValues[self.currIter] - 1]
+        let imageView = UIImageView(image: arrowImage)
+        imageView.frame = self.arrowFrames[self.paletteTag[self.filledValues[self.currIter] - 1] - 1]
+        imageView.alpha = 1
+        self.view.addSubview(imageView)
+        UIView.animateWithDuration(1.5, delay: 0, options: .CurveEaseIn, animations: {
+            imageView.alpha = 0
+            }, completion: {finished in
+                UIView.animateWithDuration(0, animations: {
+                    imageView.removeFromSuperview()
+                })
         })
         
+            
         currIter = currIter + 1
         if (currIter == filledViews.count) {
-            //            let view = UIImageView(image: UIImage(named: "shining"))
-            //            self.view.addSubview(view)
-            //            view.alpha = 0
-            //            view.frame = (view3?.frame)!
-            //            view.contentMode = .ScaleAspectFill
-            //            view.clipsToBounds = true
-            //            UIView.animateWithDuration(2, delay: 3, options: .CurveEaseIn, animations: {
-            //                view.alpha = 1
-            //                self.soundManager.playMagic()
-            //                }, completion: {finished in
-            //                    view.alpha = 0
-            //                    view.removeFromSuperview()})
             timer.invalidate()
+            if(checkWin()) {
+                NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playSong:", userInfo: nil, repeats: false)
+            }
         }
+    }
+    
+    func playSong(timer: NSTimer) {
+        soundManager.playSong()
     }
     
     func playIndividualEffect(view: UIView) {
         dispatch_async(dispatch_get_main_queue()) {
             UIView.animateWithDuration(0.25, delay: 0, options: [], animations: {
                 view.transform = CGAffineTransformMakeScale(1.2, 1.2)
-                self.soundManager.playBody(view.tag)
+                self.soundManager.playBody(self.paletteTag[view.tag - 1])
                 }, completion: { finished in
                     UIView.animateWithDuration(0.25, animations: {
                         view.transform = CGAffineTransformMakeScale(1, 1)
@@ -432,8 +428,8 @@ class HSNTViewController: UIViewController {
         }
         
         var pieceToMove : UIView?
-        if (filledPosition < 3) {
-            pieceToMove = unusedNumbers[0]
+        if (filledPosition < 4) {
+            pieceToMove = unusedNumbers[paletteTag.indexOf(filledPosition + 1)!]
             pieceToMove?.alpha = 0.8
             helpingHand.alpha = 0.8
             helpingHand.frame = frames[2]
@@ -445,7 +441,7 @@ class HSNTViewController: UIViewController {
                 UIView.animateWithDuration(2, delay: 0, options: .CurveEaseInOut, animations: {
                     pieceToMove?.center = self.positionViews[self.filledPosition].center
                     }, completion: { finished in
-                        pieceToMove!.frame = self.frames[0]
+                        pieceToMove!.frame = self.frames[pieceToMove!.tag - 1]
                         pieceToMove?.alpha = 1
                         self.helpingHand.removeFromSuperview()
                 })
@@ -466,8 +462,6 @@ class HSNTViewController: UIViewController {
             })
         }
         
-        //            dispatch_async(dispatch_get_main_queue()) {
-        //                            }
     }
     
     func reset() {
@@ -481,28 +475,39 @@ class HSNTViewController: UIViewController {
         usedNumbers.removeAll()
         unusedNumbers = imageViews
         addDefaultPieces(self.view.frame)
-        clearAllRainbowColors()
+
     }
+    
     
     func play() {
         for value in filledViews {
             print("tag\(value.tag)")
         }
 
-        disableButtons(1.5 * Double(filledPosition))
+        disableButtons(1 * Double(filledPosition))
         dispatch_async(dispatch_get_main_queue()) {
             self.soundManager.playTap()
         }
         currIter = 0
         if (filledPosition > 0) {
-            NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "playSequentEffect:", userInfo: nil, repeats: true)
+            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "playSequentEffect:", userInfo: nil, repeats: true)
         }
     }
     
+    func checkWin() -> Bool {
+        if (filledPosition == 4){
+            for i in 0..<4 {
+                if (filledValues[i] != paletteTag[i]) {
+                    return false
+                }
+            }
+            return true
+        }
+        return false
+    }
 
     func recalculate() {
-        //        print("filledposition \(filledPosition)")
-        //        print("filledcount \(filledViews.count)")
+
         filledValues = Array(count: filledValues.count, repeatedValue: 0)
         filledPosition = 0
         filledViews = [UIImageView]()
