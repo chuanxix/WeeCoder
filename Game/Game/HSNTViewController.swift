@@ -31,7 +31,7 @@ class HSNTViewController: UIViewController {
     var arrowFrames = [CGRect]()
     let arrowImage = UIImage(named: "arrow")
     var paletteTag = [Int]()
-    let seconds = [1.3, 1.2, 0.7, 0.7]
+    let seconds = [1.3, 1.2, 0.7, 0.7, 0.7, 0.7]
     let secondsForSong = [1.2, 1.2, 0.6, 0.6, 0.8, 1.2, 1.4, 1, 0.7, 0.8, 0.7, 7.1, 1.4, 1, 0.6, 0.6, 0.9, 0.8]
     let partsForSong = [0, 1, 2, 3, 2, 3, 0, 1, 2, 3, 2, 3, 0, 1, 2, 3, 2, 3]
     
@@ -124,6 +124,7 @@ class HSNTViewController: UIViewController {
         addDefaultPieces(frame)
         addArrowPositions()
         print(paletteTag)
+        sayInstruction()
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
@@ -194,7 +195,7 @@ class HSNTViewController: UIViewController {
         let frame2 = CGRectMake(imageFrame.origin.x + 415 * widthUnit, imageFrame.origin.y + 275 * heightUnit, 80 * widthUnit, 50 * heightUnit)
         let frame3 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 550 * heightUnit, 80 * widthUnit, 50 * heightUnit)
         let frame4 = CGRectMake(imageFrame.origin.x + 370 * widthUnit, imageFrame.origin.y + 690 * heightUnit, 80 * widthUnit, 50 * heightUnit)
-        arrowFrames = [frame1, frame2, frame3, frame4]
+        arrowFrames = [frame1, frame2, frame3, frame4, frame3, frame4]
     }
     
     func addDefaultPieces(frame: CGRect) {
@@ -416,7 +417,11 @@ class HSNTViewController: UIViewController {
     
     
     func playSequentEffect(index: Int) {
-        if (index == self.filledViews.count) {
+        if (index >= self.filledViews.count) {
+            if (checkWin()) {
+                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: "playSong:", userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: "playSongParts:", userInfo: nil, repeats: false)
+            }
             return
         }
         playIndividualEffect(filledViews[index])
@@ -424,6 +429,7 @@ class HSNTViewController: UIViewController {
         imageView.frame = self.arrowFrames[self.paletteTag[self.filledValues[index] - 1] - 1]
         imageView.alpha = 1
         self.view.addSubview(imageView)
+    
         UIView.animateWithDuration(seconds[self.paletteTag[self.filledValues[index] - 1] - 1], delay: 0, options: .CurveEaseIn, animations: {
             imageView.alpha = 0
             }, completion: {finished in
@@ -433,14 +439,24 @@ class HSNTViewController: UIViewController {
                         finished in self.playSequentEffect(index + 1)
                 })
             })
-        if (index == self.filledViews.count  - 1 && checkWin()) {
-            print("win")
-            NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: "playSong:", userInfo: nil, repeats: false)
-        }
+        
     }
     
-    func playSongParts() {
-        
+    func playSongParts(timer: NSTimer) {
+        let imageView = UIImageView(image: arrowImage)
+        imageView.frame = self.arrowFrames[currIter % 6]
+        imageView.alpha = 1
+        self.view.addSubview(imageView)
+        UIView.animateWithDuration(seconds[currIter % 6], delay: 0, options: .CurveEaseIn, animations: {
+            imageView.alpha = 0
+            }, completion: {finished in
+                UIView.animateWithDuration(0, animations: {
+                    imageView.removeFromSuperview()})
+        })
+        if (currIter < secondsForSong.count - 1) {
+            NSTimer.scheduledTimerWithTimeInterval(secondsForSong[currIter], target: self, selector: "playSongParts:", userInfo: nil, repeats: false)
+            currIter = currIter + 1
+        }
     }
 
 
@@ -470,6 +486,15 @@ class HSNTViewController: UIViewController {
                     })
             })
         }
+    }
+    
+    func sayInstruction() {
+        let string = "Drag the parts from the left to the middle area as you sing in the song <Head, Shoulders, Knees and Toes>"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speakUtterance(utterance)
     }
     
     func help() {

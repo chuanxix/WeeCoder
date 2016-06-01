@@ -23,6 +23,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     var colorStrings = [String]()
     
     let helpingHand = UIImageView(image: UIImage(named: "hand"))
+    let sheepView = UIImageView(image: UIImage(named: "sheep"))
     var frames = [CGRect]()
     var images = [UIImage]()
 
@@ -397,27 +398,52 @@ class RainbowViewController: UIViewController {// MARK: Properties
     }
     
     func playSequentEffect(timer: NSTimer) {
-        playIndividualEffect(filledViews[currIter])
-        UIView.animateWithDuration(1.5, animations: {
-            self.arcViews[self.currIter].tintColor = self.colors[self.filledValues[self.currIter] - 1]
-        })
+        if (currIter < filledViews.count) {
+            playIndividualEffect(filledViews[currIter])
+            UIView.animateWithDuration(1.5, animations: {
+                self.arcViews[self.currIter].tintColor = self.colors[self.filledValues[self.currIter] - 1]
+            })
+        }
         
         currIter = currIter + 1
         if (currIter == filledViews.count) {
-//            let view = UIImageView(image: UIImage(named: "shining"))
-//            self.view.addSubview(view)
-//            view.alpha = 0
-//            view.frame = (view3?.frame)!
-//            view.contentMode = .ScaleAspectFill
-//            view.clipsToBounds = true
-//            UIView.animateWithDuration(2, delay: 3, options: .CurveEaseIn, animations: {
-//                view.alpha = 1
-//                self.soundManager.playMagic()
-//                }, completion: {finished in
-//                    view.alpha = 0
-//                    view.removeFromSuperview()})
             timer.invalidate()
+            NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: "playMagic:", userInfo: nil, repeats: false)
         }
+    }
+    
+    func playMagic(timer: NSTimer) {
+        soundManager.playMagic()
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "showSheep:", userInfo: nil, repeats: false)
+    }
+    
+    func showSheep(timer: NSTimer) {
+        if (currIter == filledViews.count) {
+            
+            let screen = self.view.frame
+            sheepView.frame = CGRect(x: (screen.width - 50) / 15 * 13 , y: screen.height - 3 * (screen.width - 50) / 15, width: (screen.width - 50) / 15, height: (screen.width - 50) / 15)
+            self.view.addSubview(sheepView)
+            view.alpha = 1
+        }
+        if (currIter == self.filledViews.count + 3) {
+            self.sheepView.removeFromSuperview()
+            return
+        }
+        let frame = sheepView.frame
+        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseOut, animations: {
+            self.sheepView.frame.origin.y -= self.sheepView.frame.height / 2
+            self.soundManager.playJump()
+            }, completion: {finished in UIView.animateWithDuration(0.5, delay:0, options:.CurveEaseIn, animations: {
+                self.sheepView.frame = frame
+                }, completion: {finished in
+                if (self.currIter < self.filledViews.count + 3) {
+                    self.currIter = self.currIter + 1
+                    NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "showSheep:", userInfo: nil, repeats: false)
+                }
+            })
+        })
+        
+        
     }
     
     func playIndividualEffect(view: UIView) {
@@ -566,11 +592,6 @@ class RainbowViewController: UIViewController {// MARK: Properties
                 filledValues[index] = 0
             }
         }
-        
-//        print("filledposition \(filledPosition)")
-//        print("filledcount \(filledViews.count)")
-        print("filledvalues\(filledValues)")
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -589,9 +610,6 @@ class RainbowViewController: UIViewController {// MARK: Properties
     // Pass the selected object to the new view controller.
     }
     */
-    
-    
-    
 }
 
 extension RainbowViewController: UIGestureRecognizerDelegate {
