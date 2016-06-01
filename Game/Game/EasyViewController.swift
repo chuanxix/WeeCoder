@@ -65,7 +65,7 @@ class EasyViewController: UIViewController {
         for button in buttons {
             button.enabled = false
         }
-        NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: "enableButtons", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(EasyViewController.enableButtons), userInfo: nil, repeats: false)
     }
     
     override func viewDidLoad() {
@@ -186,7 +186,7 @@ class EasyViewController: UIViewController {
         backButton.setImage(UIImage(named: "backButton"), forState: .Normal)
         backButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        backButton.addTarget(self, action: "buttonSegue:", forControlEvents: .TouchUpInside)
+        backButton.addTarget(self, action: #selector(EasyViewController.buttonSegue(_:)), forControlEvents: .TouchUpInside)
         buttons.append(backButton)
         self.view.addSubview(backButton)
     }
@@ -199,7 +199,7 @@ class EasyViewController: UIViewController {
         playButton.setImage(UIImage(named: "playButton"), forState: .Normal)
         playButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         playButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        playButton.addTarget(self, action: "checkWin", forControlEvents: .TouchUpInside)
+        playButton.addTarget(self, action: #selector(EasyViewController.checkWin), forControlEvents: .TouchUpInside)
         buttons.append(playButton)
         self.view.addSubview(playButton)
     }
@@ -210,7 +210,7 @@ class EasyViewController: UIViewController {
         redoButton.setImage(UIImage(named: "redoButton"), forState: .Normal)
         redoButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         redoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        redoButton.addTarget(self, action: "reset", forControlEvents: .TouchUpInside)
+        redoButton.addTarget(self, action: #selector(EasyViewController.reset), forControlEvents: .TouchUpInside)
         buttons.append(redoButton)
         self.view.addSubview(redoButton)
     }
@@ -221,21 +221,21 @@ class EasyViewController: UIViewController {
         helpButton.setImage(UIImage(named: "questionButton"), forState: .Normal)
         helpButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         helpButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        helpButton.addTarget(self, action: "help", forControlEvents: .TouchUpInside)
+        helpButton.addTarget(self, action: #selector(EasyViewController.help), forControlEvents: .TouchUpInside)
         buttons.append(helpButton)
         self.view.addSubview(helpButton)
     }
     
     func addPanAndTapGestureRecognizer(view: UIImageView) {
 
-        let panGesture = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(EasyViewController.handlePan(_:)))
         panGesture.delegate = self
         view.addGestureRecognizer(panGesture)
         addTapGestureRecognizer(view)
     }
     
     func addTapGestureRecognizer(view: UIImageView) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(EasyViewController.handleTap(_:)))
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
     }
@@ -285,7 +285,7 @@ class EasyViewController: UIViewController {
                 unusedNumbers[tag - 1] = recognizer.view!
                 self.view.addSubview(unusedNumbers[tag - 1])
 
-                filledPosition++
+                filledPosition += 1
                 dispatch_async(dispatch_get_main_queue()) {
                     self.soundManager.playSnap()
                 }
@@ -346,7 +346,8 @@ class EasyViewController: UIViewController {
     
     func playSequentEffect(timer: NSTimer) {
         
-        playIndividualEffect(filledViews[currIter++])
+        playIndividualEffect(filledViews[currIter])
+        currIter += 1
         if (currIter == filledViews.count) {
             timer.invalidate()
         }
@@ -367,7 +368,7 @@ class EasyViewController: UIViewController {
     }
     
     func sayInstruction() {
-        let string = "Drag the numbers from the left to the middle area to count to one"
+        let string = "Drag the numbers from the left to the middle area to count down to one"
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         
@@ -425,14 +426,14 @@ class EasyViewController: UIViewController {
             self.soundManager.playTap()
         }
         currIter = 0
-        NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: "playSequentEffect:", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.75, target: self, selector: #selector(EasyViewController.playSequentEffect(_:)), userInfo: nil, repeats: true)
         if filledPosition == 3 && filledValues[0] == 3 && filledValues[1] == 2 && filledValues[2] == 1 {
-            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 3), target: self, selector: "playWin:", userInfo: nil, repeats: false)
-            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 4), target: self, selector: "animateRocket:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 3), target: self, selector: #selector(EasyViewController.playWin(_:)), userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 4), target: self, selector: #selector(EasyViewController.animateRocket(_:)), userInfo: nil, repeats: false)
         }
         else {
-            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 3), target: self, selector: "playLose:", userInfo: nil, repeats: false)
-            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 4), target: self, selector: "fallingRocket:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 3), target: self, selector: #selector(EasyViewController.playLose(_:)), userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(0.75 * Double(filledPosition + 4), target: self, selector: #selector(EasyViewController.fallingRocket(_:)), userInfo: nil, repeats: false)
 
         }
     }

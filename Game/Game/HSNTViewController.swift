@@ -74,7 +74,7 @@ class HSNTViewController: UIViewController {
         for button in buttons {
             button.enabled = false
         }
-        NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: "enableButtons", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(seconds, target: self, selector: #selector(HSNTViewController.enableButtons), userInfo: nil, repeats: false)
     }
     
     override func viewDidLoad() {
@@ -228,7 +228,7 @@ class HSNTViewController: UIViewController {
         backButton.setImage(UIImage(named: "backButton"), forState: .Normal)
         backButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        backButton.addTarget(self, action: "buttonSegue:", forControlEvents: .TouchUpInside)
+        backButton.addTarget(self, action: #selector(HSNTViewController.buttonSegue(_:)), forControlEvents: .TouchUpInside)
         buttons.append(backButton)
         self.view.addSubview(backButton)
     }
@@ -240,7 +240,7 @@ class HSNTViewController: UIViewController {
         playButton.setImage(UIImage(named: "playButton"), forState: .Normal)
         playButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         playButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        playButton.addTarget(self, action: "play", forControlEvents: .TouchUpInside)
+        playButton.addTarget(self, action: #selector(HSNTViewController.play), forControlEvents: .TouchUpInside)
         buttons.append(playButton)
         self.view.addSubview(playButton)
     }
@@ -251,7 +251,7 @@ class HSNTViewController: UIViewController {
         redoButton.setImage(UIImage(named: "redoButton"), forState: .Normal)
         redoButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         redoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        redoButton.addTarget(self, action: "reset", forControlEvents: .TouchUpInside)
+        redoButton.addTarget(self, action: #selector(HSNTViewController.reset), forControlEvents: .TouchUpInside)
         buttons.append(redoButton)
         self.view.addSubview(redoButton)
     }
@@ -262,21 +262,21 @@ class HSNTViewController: UIViewController {
         helpButton.setImage(UIImage(named: "questionButton"), forState: .Normal)
         helpButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         helpButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
-        helpButton.addTarget(self, action: "help", forControlEvents: .TouchUpInside)
+        helpButton.addTarget(self, action: #selector(HSNTViewController.help), forControlEvents: .TouchUpInside)
         buttons.append(helpButton)
         self.view.addSubview(helpButton)
     }
     
     func addPanAndTapGestureRecognizer(view: UIImageView) {
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: "handlePan:")
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(HSNTViewController.handlePan(_:)))
         panGesture.delegate = self
         view.addGestureRecognizer(panGesture)
         addTapGestureRecognizer(view)
     }
     
     func addTapGestureRecognizer(view: UIImageView) {
-        let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HSNTViewController.handleTap(_:)))
         //        print("\(view.tag) added")
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
@@ -326,7 +326,7 @@ class HSNTViewController: UIViewController {
                 unusedNumbers[tag - 1] = recognizer.view!
                 self.view.addSubview(unusedNumbers[tag - 1])
                 
-                filledPosition++
+                filledPosition = filledPosition + 1
                 dispatch_async(dispatch_get_main_queue()) {
                     self.soundManager.playSnap()
                 }
@@ -418,9 +418,13 @@ class HSNTViewController: UIViewController {
     
     func playSequentEffect(index: Int) {
         if (index >= self.filledViews.count) {
+            print(index)
+            print(self.filledViews.count)
             if (checkWin()) {
-                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: "playSong:", userInfo: nil, repeats: false)
-                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: "playSongParts:", userInfo: nil, repeats: false)
+                print("true")
+                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: #selector(HSNTViewController.playSong(_:)), userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(1.25, target: self, selector: #selector(HSNTViewController.playSongParts(_:)), userInfo: nil, repeats: false)
+                self.disableButtons(23)
             }
             return
         }
@@ -454,7 +458,7 @@ class HSNTViewController: UIViewController {
                     imageView.removeFromSuperview()})
         })
         if (currIter < secondsForSong.count - 1) {
-            NSTimer.scheduledTimerWithTimeInterval(secondsForSong[currIter], target: self, selector: "playSongParts:", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(secondsForSong[currIter], target: self, selector: #selector(HSNTViewController.playSongParts(_:)), userInfo: nil, repeats: false)
             currIter = currIter + 1
         }
     }
@@ -575,12 +579,16 @@ class HSNTViewController: UIViewController {
     func checkWin() -> Bool {
         if (filledPosition == 6){
             for i in 0..<4 {
-                if (filledValues[i] != paletteTag[i]) {
+                print("\(filledValues[i]) , \(paletteTag.indexOf(i + 1)! + 1)")
+                if (filledValues[i] != paletteTag.indexOf(i + 1)! + 1) {
+                    print("first clause")
                     return false
                 }
             }
             for i in 4..<6 {
-                if (filledValues[i] != paletteTag[i - 2]) {
+                print("\(filledValues[i]) , \(paletteTag.indexOf(i - 1)! + 1)")
+                if (filledValues[i] != paletteTag.indexOf(i - 1)! + 1) {
+                    print("second clause")
                     return false
                 }
             }

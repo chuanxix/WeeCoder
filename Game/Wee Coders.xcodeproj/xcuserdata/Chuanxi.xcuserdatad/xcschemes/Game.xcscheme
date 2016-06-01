@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B16DECA1CB426C2007D4BF1"
-            BuildableName = "Game.app"
-            BlueprintName = "Game"
-            ReferencedContainer = "container:Game.xcodeproj">
+            BuildableName = "Wee Coders.app"
+            BlueprintName = "Wee Coders"
+            ReferencedContainer = "container:Wee Coders.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B16DECA1CB426C2007D4BF1"
-            BuildableName = "Game.app"
-            BlueprintName = "Game"
-            ReferencedContainer = "container:Game.xcodeproj">
+            BuildableName = "Wee Coders.app"
+            BlueprintName = "Wee Coders"
+            ReferencedContainer = "container:Wee Coders.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
