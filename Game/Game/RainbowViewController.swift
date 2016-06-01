@@ -117,6 +117,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
             originYOfPositionView += widthOfPuzzle
         }
         addDefaultPieces(frame)
+        sayInstruction()
     }
     
     func addPalette(spacingToTop: CGFloat, frame : CGRect) {
@@ -198,6 +199,11 @@ class RainbowViewController: UIViewController {// MARK: Properties
     func addDefaultPieces(frame: CGRect) {
         let widthOfPuzzle = view2!.frame.width/5
         
+        let dottedImageView = UIImageView(image: UIImage(named: "dotted"))
+        dottedImageView.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
+        dottedImageView.center = positionViews[0].center
+        dottedImageView.userInteractionEnabled = false
+        
         given1 = UIImageView(image: UIImage(named: "color1"))
         given1!.tag = 1
         given1!.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
@@ -212,6 +218,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
         given2!.userInteractionEnabled = true
         addPanAndTapGestureRecognizer(given2!)
 
+        self.view.addSubview(dottedImageView)
         self.view.addSubview(given1!)
         self.view.addSubview(given2!)
         
@@ -224,7 +231,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     
     func addBackButton(spacingToTop : CGFloat) {
         
-        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         backButton.setImage(UIImage(named: "backButton"), forState: .Normal)
         backButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -235,7 +242,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     
     func addPlayButton(spacingToTop : CGFloat) {
         
-        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 3 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         playButtonFrame = playButton.frame
         playButton.setImage(UIImage(named: "playButton"), forState: .Normal)
         playButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
@@ -247,7 +254,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     
     func addRedoButton(spacingToTop : CGFloat) {
         
-        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 3 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 2, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         redoButton.setImage(UIImage(named: "redoButton"), forState: .Normal)
         redoButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         redoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -258,7 +265,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
     
     func addHelpButton(spacingToTop : CGFloat) {
         
-        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 5 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 13 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         helpButton.setImage(UIImage(named: "questionButton"), forState: .Normal)
         helpButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         helpButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -435,6 +442,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
         
         var pieceToMove : UIView?
         if (filledPosition < 3) {
+            sayInstruction()
             pieceToMove = unusedNumbers[0]
             pieceToMove?.alpha = 0.8
             helpingHand.alpha = 0.8
@@ -450,6 +458,7 @@ class RainbowViewController: UIViewController {// MARK: Properties
                         pieceToMove!.frame = self.frames[0]
                         pieceToMove?.alpha = 1
                         self.helpingHand.removeFromSuperview()
+
                 })
             }
         }
@@ -470,6 +479,15 @@ class RainbowViewController: UIViewController {// MARK: Properties
         
 //            dispatch_async(dispatch_get_main_queue()) {
 //                            }
+    }
+    
+    func sayInstruction() {
+        let string = "Drag the colors from the left to the middle area to draw a rainbow"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speakUtterance(utterance)
     }
     
     /// - Attributions: http://nshipster.com/avspeechsynthesizer/

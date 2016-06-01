@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class EasyViewController: UIViewController {
     
@@ -131,6 +132,7 @@ class EasyViewController: UIViewController {
             filledValues.append(0)
             originYOfPositionView += widthOfPuzzle
         }
+        sayInstruction()
     }
     
     func addThreeViews(spacingToTop: CGFloat, frame : CGRect) {
@@ -180,7 +182,7 @@ class EasyViewController: UIViewController {
 
     func addBackButton(spacingToTop : CGFloat) {
 
-        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         backButton.setImage(UIImage(named: "backButton"), forState: .Normal)
         backButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -192,7 +194,7 @@ class EasyViewController: UIViewController {
     func addPlayButton(spacingToTop : CGFloat) {
         
 
-        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 3 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         playButtonFrame = playButton.frame
         playButton.setImage(UIImage(named: "playButton"), forState: .Normal)
         playButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
@@ -204,7 +206,7 @@ class EasyViewController: UIViewController {
     
     func addRedoButton(spacingToTop : CGFloat) {
         
-        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 3 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 2, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         redoButton.setImage(UIImage(named: "redoButton"), forState: .Normal)
         redoButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         redoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -215,7 +217,7 @@ class EasyViewController: UIViewController {
     
     func addHelpButton(spacingToTop : CGFloat) {
         
-        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 5 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 13 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         helpButton.setImage(UIImage(named: "questionButton"), forState: .Normal)
         helpButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         helpButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -364,6 +366,15 @@ class EasyViewController: UIViewController {
         }
     }
     
+    func sayInstruction() {
+        let string = "Drag the numbers from the left to the middle area to count to one"
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speakUtterance(utterance)
+    }
+    
     func help() {
         disableButtons(1.0)
         dispatch_async(dispatch_get_main_queue()) {
@@ -371,6 +382,7 @@ class EasyViewController: UIViewController {
         }
         var pieceToMove : UIView?
         if (filledPosition < 3) {
+            sayInstruction()
             pieceToMove = unusedNumbers[2 - filledPosition]
             pieceToMove?.alpha = 0.8
             helpingHand.alpha = 0.8

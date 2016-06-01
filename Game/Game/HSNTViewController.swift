@@ -104,15 +104,15 @@ class HSNTViewController: UIViewController {
         
         addPalette(spacingToTop, frame: frame)
         
-        let widthOfPuzzle = (frame.width - 50)/15
+        let widthOfPuzzle = (frame.width - 50)/15 * 1.2
         let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
         let widthOfPositionView = widthOfPuzzle / 2
-        let originXOfPositionView = 25 + 7.25 * widthOfPuzzle
+        let originXOfPositionView = 25 + 7.25 * widthOfPuzzle / 1.2
         var originYOfPositionView = spacingToTop + spacingBtwPieces + 0.25 * widthOfPuzzle
         
         while (originYOfPositionView < frame.height) {
             let newPos = UIView()
-            newPos.frame = CGRectMake(originXOfPositionView, originYOfPositionView, widthOfPositionView, widthOfPositionView * 1.1)
+            newPos.frame = CGRectMake(originXOfPositionView, originYOfPositionView, widthOfPositionView, widthOfPositionView * 1.2)
             self.view.addSubview(newPos)
             positionViews.append(newPos)
             filledValues.append(0)
@@ -136,10 +136,10 @@ class HSNTViewController: UIViewController {
         }
         
         
-        let widthOfPuzzle = (frame.width - 50)/15
-        let spacingBtwPieces = (frame.height - spacingToTop - 20 - 5 * widthOfPuzzle) / 6
+        let widthOfPuzzle = (frame.width - 50)/15 * 1.2
+        let spacingBtwPieces = (frame.height - spacingToTop - 20 - 4 * widthOfPuzzle) / 5
         
-        let originX = 20 + 2 * widthOfPuzzle
+        let originX = 20 + 1.9 * widthOfPuzzle / 1.2
         var originY = spacingToTop + spacingBtwPieces
         
         
@@ -195,7 +195,12 @@ class HSNTViewController: UIViewController {
     }
     
     func addDefaultPieces(frame: CGRect) {
-        let widthOfPuzzle = view2!.frame.width/5
+        let widthOfPuzzle = view2!.frame.width/5 * 1.2
+        
+        let dottedImageView = UIImageView(image: UIImage(named: "dotted"))
+        dottedImageView.frame = CGRectMake(0, 0, widthOfPuzzle, 1.1 * widthOfPuzzle)
+        dottedImageView.center = positionViews[0].center
+        dottedImageView.userInteractionEnabled = false
         
         given1 = UIImageView(image: UIImage(named: "head"))
         given1!.tag = paletteTag.indexOf(1)! + 1
@@ -204,6 +209,7 @@ class HSNTViewController: UIViewController {
         given1!.userInteractionEnabled = true
         addPanAndTapGestureRecognizer(given1!)
         
+        self.view.addSubview(dottedImageView)
         self.view.addSubview(given1!)
         
         usedNumbers = [given1!]
@@ -214,7 +220,7 @@ class HSNTViewController: UIViewController {
     
     func addBackButton(spacingToTop : CGFloat) {
         
-        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let backButton = UIButton(frame: CGRect(x: 20, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         backButton.setImage(UIImage(named: "backButton"), forState: .Normal)
         backButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -225,7 +231,7 @@ class HSNTViewController: UIViewController {
     
     func addPlayButton(spacingToTop : CGFloat) {
         
-        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let playButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 3 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         playButtonFrame = playButton.frame
         playButton.setImage(UIImage(named: "playButton"), forState: .Normal)
         playButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
@@ -237,7 +243,7 @@ class HSNTViewController: UIViewController {
     
     func addRedoButton(spacingToTop : CGFloat) {
         
-        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 3 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let redoButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 2, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         redoButton.setImage(UIImage(named: "redoButton"), forState: .Normal)
         redoButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         redoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
@@ -248,7 +254,7 @@ class HSNTViewController: UIViewController {
     
     func addHelpButton(spacingToTop : CGFloat) {
         
-        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - 5 * spacingToTop/2, y: spacingToTop/4, width: spacingToTop/2, height: spacingToTop/2))
+        let helpButton = UIButton(frame: CGRect(x: self.view.frame.width - 20 - spacingToTop * 13 / 4, y: spacingToTop / 8, width: spacingToTop * 3 / 4, height: spacingToTop * 3 / 4))
         helpButton.setImage(UIImage(named: "questionButton"), forState: .Normal)
         helpButton.contentVerticalAlignment = UIControlContentVerticalAlignment.Fill
         helpButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Fill
