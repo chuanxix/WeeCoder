@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -20,14 +20,12 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gradient" translatesAutoresizingMaskIntoConstraints="NO" id="GTL-De-pAX">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="zOQ-By-WJ8">
                                 <rect key="frame" x="118" y="223" width="364" height="154"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wee Coders" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgE-Je-Gy0">
                                         <rect key="frame" x="53" y="0.0" width="258" height="64"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="XY8-Ez-oNT">
                                                 <variation key="widthClass=compact" constant="64"/>
@@ -42,7 +40,6 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6a3-RU-ZWu">
                                                 <rect key="frame" x="0.0" y="0.0" width="96" height="50"/>
-                                                <animations/>
                                                 <state key="normal" image="rainbow">
                                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,7 +50,6 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfP-jO-Zyy">
                                                 <rect key="frame" x="126" y="0.0" width="149" height="50"/>
-                                                <animations/>
                                                 <state key="normal" image="numbers"/>
                                                 <connections>
                                                     <segue destination="SN3-Jq-qac" kind="show" id="gko-PB-NEw"/>
@@ -61,23 +57,19 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdP-Bh-343">
                                                 <rect key="frame" x="305" y="0.0" width="59" height="50"/>
-                                                <animations/>
                                                 <state key="normal" image="figure"/>
                                                 <connections>
                                                     <segue destination="p8O-sp-cK7" kind="show" identifier="" id="N6Z-0o-n3M"/>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" secondItem="6a3-RU-ZWu" secondAttribute="height" id="Cyu-sC-Rkk"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <animations/>
                             </stackView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GTL-De-pAX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EcP-Jh-hiN"/>
@@ -104,7 +96,6 @@
                     <view key="view" contentMode="scaleToFill" id="1rQ-xI-A31">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Kfe-Yk-8P8"/>
@@ -117,11 +108,6 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="21k-Bv-ODV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="4se-xr-V8p" userLabel="Exit" sceneMemberID="exit"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Ncp-10-H9S">
-                    <connections>
-                        <action selector="pan2:" destination="SN3-Jq-qac" id="Gcs-Gd-dDv"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1463" y="-324"/>
         </scene>
@@ -136,7 +122,6 @@
                     <view key="view" contentMode="scaleToFill" id="ZHW-Oc-Khp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
@@ -159,7 +144,6 @@
                     <view key="view" contentMode="scaleToFill" id="mNg-S3-Tf1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ujs-KW-LHm"/>
